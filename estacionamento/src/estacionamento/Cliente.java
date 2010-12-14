@@ -83,7 +83,7 @@ public class Cliente {
         this.valor = valor;
     }
 
-    public static void Serializa(ArrayList<Cliente> Clientes, String caminho) throws FileNotFoundException, IOException{
+    public static void serializa(ArrayList<Cliente> Clientes) throws FileNotFoundException, IOException{
 
         //Gera o arquivo para armazenar o objeto
         FileOutputStream arquivoGrav;
@@ -91,7 +91,7 @@ public class Cliente {
         if (!new File("dados/").exists()) {
             new File("dados/").mkdirs();
         }
-        arquivoGrav = new FileOutputStream(caminho);
+        arquivoGrav = new FileOutputStream("dados/registro.dat");
 
         //Classe responsavel por inserir os objetos
         ObjectOutputStream objGravar = new ObjectOutputStream(arquivoGrav);
@@ -108,24 +108,37 @@ public class Cliente {
         arquivoGrav.close();
     }
 
-    public static ArrayList<Cliente> Desserializa(String caminho) throws FileNotFoundException, IOException, ClassNotFoundException {
+    static ArrayList<Cliente> deserializa() {
 
-        //arquivo onde estao os dados serializados
-        FileInputStream arqLeitura;
+        FileInputStream arqLeitura = null;
+	ObjectInputStream in = null;
+	ArrayList<Cliente> lista = null;
+	try {
 
-        arqLeitura = new FileInputStream(caminho);
+		//arquivo onde estao os dados serializados
+		arqLeitura = new FileInputStream("dados/registro.dat");
 
-        //objeto que vai ler os dados do arquivo
-        ObjectInputStream in = new ObjectInputStream(arqLeitura);
+		//objeto que vai ler os dados do arquivo
+		in = new ObjectInputStream(arqLeitura);
 
-        //recupera o arrayList
-        ArrayList<Cliente> lista = (ArrayList<Cliente>) in.readObject();
+		//recupera os dados
+		lista = (ArrayList<Cliente>) in.readObject();
+	} catch (ClassNotFoundException ex) {
+		ex.printStackTrace();
+	} catch (IOException ex) {
+		ex.printStackTrace();
+	} finally {
+		try {
+			arqLeitura.close();
+			in.close();
+		} catch (IOException ex) {
+			ex.printStackTrace();
+		}
+	}
 
-        arqLeitura.close();
-        in.close();
+	return lista;
+}
 
-        return lista;
-    }
 
 
 

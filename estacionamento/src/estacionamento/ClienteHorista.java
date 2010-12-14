@@ -9,7 +9,7 @@ import java.util.Calendar;
 
 /**
  *
- * @author User
+ * @author Marina
  */
 public class ClienteHorista extends Cliente {
 

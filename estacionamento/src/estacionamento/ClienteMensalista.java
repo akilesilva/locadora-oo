@@ -5,8 +5,13 @@
 
 package estacionamento;
 
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -18,14 +23,29 @@ import java.util.Calendar;
 public class ClienteMensalista extends Cliente implements Serializable{
 
     boolean emDia = true; // indica se o cliente esta com o pagamento em dia ou atrasado
+    String nomeCliente;
+    String modelo; // indica o modelo do carro do cliente
     private ClienteHorista usuario;
+    ArrayList<ClienteMensalista> clientes=new ArrayList<ClienteMensalista>();
 
-    public ClienteMensalista(String nPlaca, boolean pagamento)
+    public ClienteMensalista(){
+        this.placa=null;
+        this.nomeCliente=null;
+        this.modelo=null;
+        this.tipo=1;
+        this.emDia=true;
+
+    }
+
+    public ClienteMensalista(String nPlaca, String nome, String modelo, boolean pagamento)
     {
         this.placa=nPlaca;
+        this.nomeCliente=nome;
+        this.modelo=modelo;
         this.tipo=1;
         this.emDia=pagamento;
     }
+
 
     public double CalculaValor(Calendar entrada, Calendar saida, ClienteMensalista Cliente)
     {
@@ -63,15 +83,91 @@ public class ClienteMensalista extends Cliente implements Serializable{
         this.emDia = emDia;
     }
 
+
     //cadastra o cliente e salva suas informacoes em um arquivo .dat
-    public void Cadastro(String placa) throws FileNotFoundException, IOException
+
+    public void Cadastro(ClienteMensalista pessoa) throws FileNotFoundException, IOException
     {
-          ArrayList<Cliente> clientes=null;
-          ClienteMensalista pessoa = new ClienteMensalista (placa,true);
-          clientes.add(pessoa);
-          Serializa(clientes,"dados/cliente.dat");
+        //adiciona no arrayList de clientes mensalistas
+        clientes.add(pessoa);
+
+        //adiciona no cadastro de mensalistas
+        Serializa(clientes);
+        ArrayList<ClienteMensalista> tudo = Deserializa();
+
     }
 
+    public ArrayList<ClienteMensalista> ListaAtrasados() throws FileNotFoundException, IOException, ClassNotFoundException
+    {
+        ArrayList<ClienteMensalista> Atrasados = null;
+        ArrayList<ClienteMensalista> todos = Deserializa();
+        for(Cliente pessoa: clientes)
+        {
+            ClienteMensalista donoCarro = (ClienteMensalista) pessoa;
+            if(donoCarro.isEmDia()==false)
+            {
+                Atrasados.add(donoCarro);
+            }
+        }
+        return Atrasados;
+    }
 
+    public void Serializa (ArrayList<ClienteMensalista> Dados) throws FileNotFoundException, IOException
+    {
+        //Gera o arquivo para armazenar o objeto
+        FileOutputStream arquivoGrav;
+
+        if (!new File("dados/").exists()) {
+            new File("dados/").mkdirs();
+        }
+        arquivoGrav = new FileOutputStream("dados/clientesmensais.dat");
+
+        //Classe responsavel por inserir os objetos
+        ObjectOutputStream objGravar = new ObjectOutputStream(arquivoGrav);
+
+        //Grava o objeto no arquivo
+        objGravar.writeObject(Dados);
+
+        objGravar.flush();
+
+        objGravar.close();
+
+        arquivoGrav.flush();
+
+        arquivoGrav.close();
+    }
+
+    public ArrayList<ClienteMensalista> Deserializa(){
+
+        FileInputStream arqLeitura = null;
+	ObjectInputStream in = null;
+	ArrayList<ClienteMensalista> todos = null;
+	try {
+
+		//arquivo onde estao os dados serializados
+		arqLeitura = new FileInputStream("dados/clientesmensais.dat");
+
+		//objeto que vai ler os dados do arquivo
+		in = new ObjectInputStream(arqLeitura);
+
+		//recupera os dados
+		todos = (ArrayList<ClienteMensalista>) in.readObject();
+	} catch (ClassNotFoundException ex) {
+		ex.printStackTrace();
+	} catch (IOException ex) {
+		ex.printStackTrace();
+	} finally {
+		try {
+			arqLeitura.close();
+			in.close();
+		} catch (IOException ex) {
+			ex.printStackTrace();
+		}
+	}
+
+	return todos;
+    }
 }
+
+
 

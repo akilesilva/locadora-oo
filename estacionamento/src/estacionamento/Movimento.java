@@ -12,41 +12,43 @@ import java.util.Calendar;
 
 /**
  *
- * @author User
+ * @author Marina
  */
 public class Movimento {
 
     //clientes mensalistas cadastrados
-     ArrayList<Cliente> cadastrados;
-     
+     ArrayList<ClienteMensalista> cadastrados;
+
      //registro de entrada e saida de veiculos do estacionamento, tanto mensalistas quando horistas
      ArrayList<Cliente> TotalClientes;
 
     public void Entrada(String placa) throws FileNotFoundException, IOException, ClassNotFoundException
     {
-
         int codigo = 0;
 
-        cadastrados = ClienteMensalista.Desserializa("dados/clientes.dat");
+        //cria um objeto Cliente Mensalista e 'pega' todos os clientes mensalistas
+        ClienteMensalista mensal = new ClienteMensalista();
+        cadastrados = mensal.Deserializa();
 
-        //pega a hora que entrou e armazena no cadastro do cliente
+        //pega a hora que entrou para armazenar no registro do cliente
         Calendar hora = Calendar.getInstance();
 
         //primeiro procura se é mensalista
-        for(Cliente pessoa : cadastrados)
+        for(ClienteMensalista pessoa : cadastrados)
         {
-
             codigo = pessoa.getTipo();
             //se eh mensalista
             if(pessoa.getPlaca().equals(placa))
             {
+                //adiciona a hora de entrada no cadastro
                 pessoa.setHoraEntrada(hora);
 
-                ClienteMensalista.Serializa(cadastrados,"dados/clientes.dat");//atualiza o cadastro com a nova hora do mensalista
+                //atualiza o .dat com a nova hora do mensalista
+                pessoa.Serializa(cadastrados);
 
                 //armazena a entrada no registro total
                 TotalClientes.add(pessoa);
-                Cliente.Serializa(TotalClientes, "dados/registro.dat");
+                Cliente.serializa(TotalClientes);
 
                 break;
             }
@@ -57,9 +59,11 @@ public class Movimento {
             ClienteHorista usuario = new ClienteHorista(placa);
             //armazena a hora que entrou
             usuario.setHoraEntrada(hora);
+            //adiciona no ArrayList de todos os clientes
             TotalClientes.add(usuario);
-            Cliente.Serializa(TotalClientes, "dados/registro.dat");
-            
+            //salva no registro o novo cliente
+            Cliente.serializa(TotalClientes);
+
         }
     }
 
@@ -74,18 +78,17 @@ public class Movimento {
         {
             codigo = pessoa.getTipo();
 
-            //procura o cliente com a placa dada
+            //procura o cliente com a placa dada, no registro total de clientes
             if(pessoa.getPlaca().equals(placa))
             {
                 if(pessoa.getTipo()==1)//eh mensalista
                 {
                     //pega a hora de saída do mensalista e atualiza seu cadastro
                     pessoa.setHoraSaida(horaSaida);
-                    Cliente.Serializa(TotalClientes, "dados/registro.dat");
+                    Cliente.serializa(TotalClientes);
                 }
                 else // eh horista
                 {
-                   
                     //cria um objeto do tipo ClienteHorista para usar o metodo calcula valor
                     ClienteHorista usuario = (ClienteHorista) pessoa;
 
@@ -96,7 +99,7 @@ public class Movimento {
                     usuario.setValor(usuario.CalculaValor(entrada,horaSaida));
 
                     //atualiza o registro de clientes
-                    Cliente.Serializa(TotalClientes,"dados/registro.dat" );
+                    Cliente.serializa(TotalClientes);
                  }
                 break;
             }
