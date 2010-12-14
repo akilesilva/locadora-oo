@@ -40,6 +40,11 @@ public class FormPrincipal extends javax.swing.JFrame {
         btCadastrar.setText("Cadastrar Usuário");
 
         btSaida.setText("Saída de Veículos");
+        btSaida.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btSaidaActionPerformed(evt);
+            }
+        });
 
         btEntrada.setText("Entrada de Veículos");
         btEntrada.addActionListener(new java.awt.event.ActionListener() {
@@ -80,6 +85,12 @@ public class FormPrincipal extends javax.swing.JFrame {
         FormEntrada form = new FormEntrada();
         form.show();
     }//GEN-LAST:event_btEntradaActionPerformed
+
+    private void btSaidaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSaidaActionPerformed
+        // TODO add your handling code here:
+        FormSaida form = new FormSaida();
+        form.show();
+    }//GEN-LAST:event_btSaidaActionPerformed
 
     /**
     * @param args the command line arguments

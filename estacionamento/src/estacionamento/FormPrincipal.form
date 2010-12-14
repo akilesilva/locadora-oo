@@ -57,6 +57,9 @@
       <Properties>
         <Property name="text" type="java.lang.String" value="Sa&#xed;da de Ve&#xed;culos"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btSaidaActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="btEntrada">
       <Properties>

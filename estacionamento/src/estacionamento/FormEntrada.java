@@ -34,12 +34,22 @@ public class FormEntrada extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         tfPlaca = new javax.swing.JTextField();
         btRegistrar = new javax.swing.JButton();
+        lbteste = new javax.swing.JLabel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        addPropertyChangeListener(new java.beans.PropertyChangeListener() {
+            public void propertyChange(java.beans.PropertyChangeEvent evt) {
+                formPropertyChange(evt);
+            }
+        });
 
         jLabel1.setText("Informe a placa do veículo:");
 
         btRegistrar.setText("Registrar");
+        btRegistrar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btRegistrarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -55,6 +65,10 @@ public class FormEntrada extends javax.swing.JFrame {
                 .addGap(160, 160, 160)
                 .addComponent(btRegistrar)
                 .addContainerGap(163, Short.MAX_VALUE))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(173, 173, 173)
+                .addComponent(lbteste)
+                .addContainerGap(227, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -65,11 +79,23 @@ public class FormEntrada extends javax.swing.JFrame {
                 .addComponent(tfPlaca, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(btRegistrar)
-                .addContainerGap(128, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addComponent(lbteste)
+                .addContainerGap(110, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btRegistrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btRegistrarActionPerformed
+        // TODO add your handling code here:
+        String placa = tfPlaca.getText();
+        lbteste.setText("Placa "+placa+ " registrada!");
+    }//GEN-LAST:event_btRegistrarActionPerformed
+
+    private void formPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_formPropertyChange
+        // TODO add your handling code here:
+    }//GEN-LAST:event_formPropertyChange
 
     /**
     * @param args the command line arguments
@@ -85,6 +111,7 @@ public class FormEntrada extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btRegistrar;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel lbteste;
     private javax.swing.JTextField tfPlaca;
     // End of variables declaration//GEN-END:variables
 
