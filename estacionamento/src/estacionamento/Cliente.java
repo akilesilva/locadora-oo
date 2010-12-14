@@ -45,10 +45,17 @@ public class Cliente {
         this.HoraSaida = horaSaiu;
     }
 
-    public Cliente()
-    {
+    public Cliente(String placaV,int tipoC,double valor){
+
+        this.placa=placaV;
+        this.tipo=tipoC;
+        this.valor=valor;
+    }
+
+    public Cliente(){
+
         this.placa=null;
-        this.tipo=0;
+        this.tipo=1;
         this.valor=0.0;
     }
 

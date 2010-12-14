@@ -34,7 +34,7 @@ public class Cadastro implements Serializable {
         System.out.print("Digite a placa do veículo");
         placa = input.nextLine();
 
-        Cliente mensalista = new Cliente(placa,1,true);
+        Cliente mensalista = new Cliente(placa,1,0.0);
 
         clientes = new ArrayList<Cliente>();
         clientes.add(mensalista);
