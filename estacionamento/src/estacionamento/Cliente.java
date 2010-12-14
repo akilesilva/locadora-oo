@@ -12,6 +12,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Calendar;
 
@@ -19,7 +20,7 @@ import java.util.Calendar;
  *
  * @author Marina
  */
-public class Cliente {
+public class Cliente implements Serializable{
 
     protected String placa;
     protected int tipo;// 1 se é mensalista e 0 se é horista

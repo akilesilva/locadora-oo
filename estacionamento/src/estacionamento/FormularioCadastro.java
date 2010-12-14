@@ -17,7 +17,7 @@ import java.util.ArrayList;
 
 /**
  *
- * @author User
+ * @author Marina
  */
 public class FormularioCadastro extends JFrame {
 
@@ -84,6 +84,30 @@ public class FormularioCadastro extends JFrame {
             System.exit(0);
        }
         });
+
+        novo.addActionListener(new ActionListener(){
+        public void actionPerformed(ActionEvent e){
+
+            String nomeCliente = campo1.getText();
+            String placa = campo2.getText();
+            String tipoC = campo3.getText();
+
+            ClienteMensalista atual = new ClienteMensalista(placa,nomeCliente,tipoC,true);
+                try {
+                    atual.Cadastro(atual);
+                } catch (FileNotFoundException ex) {
+                    Logger.getLogger(FormularioCadastro.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (IOException ex) {
+                    Logger.getLogger(FormularioCadastro.class.getName()).log(Level.SEVERE, null, ex);
+                }
+
+           
+                campo1.setText("");
+                campo2.setText("");
+                campo3.setText("");
+       }
+        });
+
 
 }
 }

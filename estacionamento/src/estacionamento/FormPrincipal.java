@@ -38,6 +38,11 @@ public class FormPrincipal extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         btCadastrar.setText("Cadastrar Usuário");
+        btCadastrar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btCadastrarActionPerformed(evt);
+            }
+        });
 
         btSaida.setText("Saída de Veículos");
         btSaida.addActionListener(new java.awt.event.ActionListener() {
@@ -91,6 +96,10 @@ public class FormPrincipal extends javax.swing.JFrame {
         FormSaida form = new FormSaida();
         form.show();
     }//GEN-LAST:event_btSaidaActionPerformed
+
+    private void btCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btCadastrarActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btCadastrarActionPerformed
 
     /**
     * @param args the command line arguments
