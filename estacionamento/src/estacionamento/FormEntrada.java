@@ -11,6 +11,13 @@
 
 package estacionamento;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 /**
  *
  * @author TI
@@ -90,7 +97,23 @@ public class FormEntrada extends javax.swing.JFrame {
     private void btRegistrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btRegistrarActionPerformed
         // TODO add your handling code here:
         String placa = tfPlaca.getText();
-        lbteste.setText("Placa "+placa+ " registrada!");
+        lbteste.setText("Placa "+placa+" registrada!");
+
+        ClienteHorista cliente = new ClienteHorista(placa);
+        Calendar hora = Calendar.getInstance();
+        cliente.setHoraEntrada(hora);
+
+
+        ArrayList<Cliente> Clientes = new ArrayList<Cliente>();
+        boolean add = Clientes.add(cliente);
+        try {
+            Cadastro.Serializa(Clientes);
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(FormEntrada.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(FormEntrada.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        if(add)lbteste.setText("ADD!");
     }//GEN-LAST:event_btRegistrarActionPerformed
 
     private void formPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_formPropertyChange

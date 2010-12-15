@@ -5,13 +5,14 @@
 
 package estacionamento;
 
+import java.io.Serializable;
 import java.util.Calendar;
 
 /**
  *
  * @author Marina
  */
-public class ClienteHorista extends Cliente {
+public class ClienteHorista extends Cliente implements Serializable{
 
     public ClienteHorista(String numPlaca)
     {

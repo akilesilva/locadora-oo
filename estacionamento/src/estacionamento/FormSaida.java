@@ -11,6 +11,13 @@
 
 package estacionamento;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 /**
  *
  * @author TI
@@ -39,6 +46,11 @@ public class FormSaida extends javax.swing.JFrame {
         jLabel1.setText("Informe a placa do veículo:");
 
         btCalcular.setText("Calcular Preço");
+        btCalcular.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btCalcularActionPerformed(evt);
+            }
+        });
 
         lbPreco.setText("Valor");
 
@@ -78,6 +90,37 @@ public class FormSaida extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btCalcularActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btCalcularActionPerformed
+        // TODO add your handling code here:
+        ArrayList<Cliente> Clientes = new ArrayList<Cliente>();
+        boolean achou=false;
+        try {
+            Clientes = Cadastro.desserializa();
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(FormSaida.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(FormSaida.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(FormSaida.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        for(Cliente c: Clientes){
+            if (c.getPlaca().equalsIgnoreCase(tfPlaca.getText()))
+            {
+                lbPreco.setText("Achou");
+                Calendar hora = Calendar.getInstance();
+                c.setHoraSaida(hora);
+                ClienteHorista ch = new ClienteHorista(c.getPlaca());
+
+                double total = ch.CalculaValor(c.getHoraEntrada(), c.getHoraSaida());
+                //calcula
+                lbPreco.setText(String.valueOf(total));
+                achou=true;
+            }
+        }
+        if(!achou)
+            lbPreco.setText("Veículo não encontrado");
+    }//GEN-LAST:event_btCalcularActionPerformed
 
     /**
     * @param args the command line arguments

@@ -20,7 +20,9 @@ import java.util.Calendar;
  *
  * @author Marina
  */
+
 public class Cliente implements Serializable{
+
 
     protected String placa;
     protected int tipo;// 1 se é mensalista e 0 se é horista
