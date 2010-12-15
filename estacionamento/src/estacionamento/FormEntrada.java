@@ -1,13 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-
-/*
- * FormEntrada.java
- *
- * Created on 14/12/2010, 13:00:36
- */
 
 package estacionamento;
 
@@ -63,19 +53,16 @@ public class FormEntrada extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(133, 133, 133)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(tfPlaca, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 130, Short.MAX_VALUE)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(137, 137, 137))
-            .addGroup(layout.createSequentialGroup()
                 .addGap(160, 160, 160)
                 .addComponent(btRegistrar)
                 .addContainerGap(163, Short.MAX_VALUE))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(173, 173, 173)
-                .addComponent(lbteste)
-                .addContainerGap(227, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(133, 133, 133)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(lbteste, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 130, Short.MAX_VALUE)
+                    .addComponent(tfPlaca, javax.swing.GroupLayout.DEFAULT_SIZE, 130, Short.MAX_VALUE)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(137, 137, 137))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -87,8 +74,8 @@ public class FormEntrada extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addComponent(btRegistrar)
                 .addGap(18, 18, 18)
-                .addComponent(lbteste)
-                .addContainerGap(110, Short.MAX_VALUE))
+                .addComponent(lbteste, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(72, Short.MAX_VALUE))
         );
 
         pack();
@@ -104,7 +91,17 @@ public class FormEntrada extends javax.swing.JFrame {
         cliente.setHoraEntrada(hora);
 
 
-        ArrayList<Cliente> Clientes = new ArrayList<Cliente>();
+        ArrayList<Cliente> Clientes = null;
+        try {
+            Clientes = Cadastro.desserializa();
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(FormEntrada.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(FormEntrada.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(FormEntrada.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
         boolean add = Clientes.add(cliente);
         try {
             Cadastro.Serializa(Clientes);
@@ -113,7 +110,7 @@ public class FormEntrada extends javax.swing.JFrame {
         } catch (IOException ex) {
             Logger.getLogger(FormEntrada.class.getName()).log(Level.SEVERE, null, ex);
         }
-        if(add)lbteste.setText("ADD!");
+        if(add)lbteste.setText("Placa "+placa+" registrada!");
     }//GEN-LAST:event_btRegistrarActionPerformed
 
     private void formPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_formPropertyChange

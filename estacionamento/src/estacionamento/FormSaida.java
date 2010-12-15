@@ -1,13 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-
-/*
- * FormSaida.java
- *
- * Created on 14/12/2010, 12:56:12
- */
 
 package estacionamento;
 
@@ -42,50 +32,62 @@ public class FormSaida extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         btCalcular = new javax.swing.JButton();
         lbPreco = new javax.swing.JLabel();
+        tfPreco = new javax.swing.JTextField();
+        jLabel2 = new javax.swing.JLabel();
 
         jLabel1.setText("Informe a placa do veículo:");
 
-        btCalcular.setText("Calcular Preço");
+        btCalcular.setText("Calcular valor a pagar:");
         btCalcular.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btCalcularActionPerformed(evt);
             }
         });
 
-        lbPreco.setText("Valor");
+        lbPreco.setText("Valor a ser pago:");
+
+        tfPreco.setText("1.5");
+
+        jLabel2.setText("Preço da Hora (em reais):");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(138, 138, 138)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(58, 58, 58)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(layout.createSequentialGroup()
-                            .addGap(39, 39, 39)
-                            .addComponent(lbPreco))
+                    .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(tfPlaca, javax.swing.GroupLayout.DEFAULT_SIZE, 130, Short.MAX_VALUE)
-                            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(99, 99, 99)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(tfPreco)
+                            .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(54, 54, 54))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(14, 14, 14)
-                        .addComponent(btCalcular)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 15, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(132, 132, 132))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(lbPreco)
+                            .addComponent(btCalcular))
+                        .addContainerGap())))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(69, 69, 69)
-                .addComponent(jLabel1)
+                .addGap(55, 55, 55)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel1)
+                    .addComponent(jLabel2))
                 .addGap(18, 18, 18)
-                .addComponent(tfPlaca, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(tfPlaca, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(tfPreco, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(26, 26, 26)
                 .addComponent(btCalcular)
-                .addGap(42, 42, 42)
+                .addGap(36, 36, 36)
                 .addComponent(lbPreco)
-                .addContainerGap(82, Short.MAX_VALUE))
+                .addContainerGap(94, Short.MAX_VALUE))
         );
 
         pack();
@@ -110,11 +112,16 @@ public class FormSaida extends javax.swing.JFrame {
                 lbPreco.setText("Achou");
                 Calendar hora = Calendar.getInstance();
                 c.setHoraSaida(hora);
-                ClienteHorista ch = new ClienteHorista(c.getPlaca());
+                //ClienteHorista ch = new ClienteHorista(c.getPlaca());
 
-                double total = ch.CalculaValor(c.getHoraEntrada(), c.getHoraSaida());
-                //calcula
-                lbPreco.setText(String.valueOf(total));
+                int horaE = c.getHoraEntrada().HOUR_OF_DAY;
+                
+                int horaS = Calendar.getInstance().HOUR_OF_DAY;
+                int horaTotal = Math.abs(horaE-horaS);
+
+                double total = horaTotal * Double.parseDouble(tfPreco.getText());
+
+                lbPreco.setText("Valor a ser pago: R$"+String.valueOf(total));
                 achou=true;
             }
         }
@@ -136,8 +143,10 @@ public class FormSaida extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btCalcular;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel lbPreco;
     private javax.swing.JTextField tfPlaca;
+    private javax.swing.JTextField tfPreco;
     // End of variables declaration//GEN-END:variables
 
 }

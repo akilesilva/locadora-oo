@@ -1,7 +1,4 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
+
 
 package estacionamento;
 import java.io.FileNotFoundException;
@@ -33,7 +30,7 @@ public class FormularioCadastro extends JFrame {
     public FormularioCadastro(){
 
         this.setTitle("Cadastro de Mensalista");
-        this.setSize(360,250);
+        this.setSize(500,400);
 
         // Cria os componentes
         nome = new JLabel("Nome:"); campo1 = new JTextField(30);
@@ -83,8 +80,8 @@ public class FormularioCadastro extends JFrame {
                     Logger.getLogger(FormularioCadastro.class.getName()).log(Level.SEVERE, null, ex);
                 }
 
-
             System.exit(0);
+            
        }
         });
    

@@ -34,6 +34,8 @@ public class FormPrincipal extends javax.swing.JFrame {
         btCadastrar = new javax.swing.JButton();
         btSaida = new javax.swing.JButton();
         btEntrada = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -58,28 +60,48 @@ public class FormPrincipal extends javax.swing.JFrame {
             }
         });
 
+        jLabel1.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jLabel1.setText("Controle de Estacionamento");
+
+        jLabel2.setText("Grupo: Felipe Rooke, Frâncila Weidt, Marina Ivanov, Rafael Motta");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addGap(21, 21, 21)
+                .addComponent(jLabel2)
+                .addContainerGap())
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(88, Short.MAX_VALUE)
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 229, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(83, 83, 83))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(135, 135, 135)
+                .addComponent(btCadastrar)
+                .addContainerGap(146, Short.MAX_VALUE))
+            .addGroup(layout.createSequentialGroup()
                 .addGap(133, 133, 133)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(btEntrada)
-                    .addComponent(btSaida)
-                    .addComponent(btCadastrar))
+                    .addComponent(btSaida))
                 .addContainerGap(140, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(63, 63, 63)
-                .addComponent(btCadastrar)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 50, Short.MAX_VALUE)
+                .addContainerGap()
+                .addComponent(jLabel1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 41, Short.MAX_VALUE)
                 .addComponent(btEntrada)
-                .addGap(39, 39, 39)
+                .addGap(33, 33, 33)
                 .addComponent(btSaida)
-                .addGap(79, 79, 79))
+                .addGap(32, 32, 32)
+                .addComponent(btCadastrar)
+                .addGap(52, 52, 52)
+                .addComponent(jLabel2)
+                .addGap(26, 26, 26))
         );
 
         pack();
@@ -118,6 +140,8 @@ public class FormPrincipal extends javax.swing.JFrame {
     private javax.swing.JButton btCadastrar;
     private javax.swing.JButton btEntrada;
     private javax.swing.JButton btSaida;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     // End of variables declaration//GEN-END:variables
 
 }
