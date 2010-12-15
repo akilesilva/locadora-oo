@@ -138,4 +138,24 @@ public class Cliente implements Serializable{
 
 	return lista;
 }
+
+
+    public static ArrayList<Cliente> PagamentosMes()
+    {
+        ArrayList<Cliente> lista = new ArrayList<Cliente>();
+        ArrayList<Cliente> todos = deserializa();
+
+        // pega o mes em que estamos
+        Calendar mes = Calendar.getInstance();
+
+
+        for(Cliente usuario: todos)
+        {
+            //se o mes da saida eh igual ao mes que procura
+            if(usuario.HoraSaida.get(Calendar.MONTH)==mes.get(Calendar.MONTH))
+                    lista.add(usuario);
+        }
+
+        return lista;
+    }
 }
