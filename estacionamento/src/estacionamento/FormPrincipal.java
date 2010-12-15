@@ -99,6 +99,10 @@ public class FormPrincipal extends javax.swing.JFrame {
 
     private void btCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btCadastrarActionPerformed
         // TODO add your handling code here:
+
+        FormularioCadastro cad = new FormularioCadastro();
+        cad.show();
+
     }//GEN-LAST:event_btCadastrarActionPerformed
 
     /**

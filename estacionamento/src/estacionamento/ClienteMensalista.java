@@ -18,7 +18,7 @@ import java.util.Calendar;
 
 /**
  *
- * @author User
+ * @author Marina
  */
 public class ClienteMensalista extends Cliente implements Serializable{
 
@@ -86,21 +86,20 @@ public class ClienteMensalista extends Cliente implements Serializable{
 
     //cadastra o cliente e salva suas informacoes em um arquivo .dat
 
-    public void Cadastro(ClienteMensalista pessoa) throws FileNotFoundException, IOException
+    public void Cadastro(ClienteMensalista pessoa) throws FileNotFoundException, IOException, ClassNotFoundException, Exception
     {
         //adiciona no arrayList de clientes mensalistas
         clientes.add(pessoa);
 
         //adiciona no cadastro de mensalistas
-        Serializa(clientes);
-        ArrayList<ClienteMensalista> tudo = Deserializa();
-
-    }
+        SerializaMensal(clientes);
+        ArrayList<ClienteMensalista> tudo = deserializaMensal();
+       }
 
     public ArrayList<ClienteMensalista> ListaAtrasados() throws FileNotFoundException, IOException, ClassNotFoundException
     {
         ArrayList<ClienteMensalista> Atrasados = null;
-        ArrayList<ClienteMensalista> todos = Deserializa();
+        ArrayList<ClienteMensalista> todos = deserializaMensal();
         for(Cliente pessoa: clientes)
         {
             ClienteMensalista donoCarro = (ClienteMensalista) pessoa;
@@ -112,21 +111,21 @@ public class ClienteMensalista extends Cliente implements Serializable{
         return Atrasados;
     }
 
-    public void Serializa (ArrayList<ClienteMensalista> Dados) throws FileNotFoundException, IOException
-    {
+public static void SerializaMensal(ArrayList<ClienteMensalista> cadastrados) throws FileNotFoundException, IOException{
+
         //Gera o arquivo para armazenar o objeto
         FileOutputStream arquivoGrav;
 
         if (!new File("dados/").exists()) {
             new File("dados/").mkdirs();
         }
-        arquivoGrav = new FileOutputStream("dados/clientesmensais.dat");
+        arquivoGrav = new FileOutputStream("dados/mensalistas.dat");
 
         //Classe responsavel por inserir os objetos
         ObjectOutputStream objGravar = new ObjectOutputStream(arquivoGrav);
 
         //Grava o objeto no arquivo
-        objGravar.writeObject(Dados);
+        objGravar.writeObject(cadastrados);
 
         objGravar.flush();
 
@@ -137,21 +136,21 @@ public class ClienteMensalista extends Cliente implements Serializable{
         arquivoGrav.close();
     }
 
-    public ArrayList<ClienteMensalista> Deserializa(){
+    static ArrayList<ClienteMensalista> deserializaMensal() {
 
         FileInputStream arqLeitura = null;
 	ObjectInputStream in = null;
-	ArrayList<ClienteMensalista> todos = null;
+	ArrayList<ClienteMensalista> lista = null;
 	try {
 
 		//arquivo onde estao os dados serializados
-		arqLeitura = new FileInputStream("dados/clientesmensais.dat");
+		arqLeitura = new FileInputStream("dados/mensalistas.dat");
 
 		//objeto que vai ler os dados do arquivo
 		in = new ObjectInputStream(arqLeitura);
 
 		//recupera os dados
-		todos = (ArrayList<ClienteMensalista>) in.readObject();
+		lista = (ArrayList<ClienteMensalista>) in.readObject();
 	} catch (ClassNotFoundException ex) {
 		ex.printStackTrace();
 	} catch (IOException ex) {
@@ -165,8 +164,9 @@ public class ClienteMensalista extends Cliente implements Serializable{
 		}
 	}
 
-	return todos;
-    }
+	return lista;
+}
+
 }
 
 

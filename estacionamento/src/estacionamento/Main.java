@@ -21,11 +21,8 @@ public class Main {
     public static void main(String[] args) {
         // TODO code application logic here
 
-        FormularioCadastro form = new FormularioCadastro();
+        FormPrincipal form = new FormPrincipal();
         form.show();
-//
-//        FormPrincipal form = new FormPrincipal();
-//        form.show();
     }
 
 }

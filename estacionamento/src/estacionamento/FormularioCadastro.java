@@ -24,8 +24,6 @@ public class FormularioCadastro extends JFrame {
     //declaracao dos componentes da janela
     protected JLabel nome, placa, tipoDoCarro;
     protected JButton ok;
-    protected JButton novo;
-    protected JButton imprimir;
     protected JTextField campo1,campo2,campo3;
     protected JPanel panel1 = new JPanel();
     protected JPanel panel2= new JPanel();
@@ -40,9 +38,9 @@ public class FormularioCadastro extends JFrame {
         // Cria os componentes
         nome = new JLabel("Nome:"); campo1 = new JTextField(30);
         placa = new JLabel("Placa do veículo:"); campo2 = new JTextField(10);
-        ok= new JButton("OK");  novo= new JButton("Novo cadastro");
+        ok= new JButton("OK");  
         tipoDoCarro = new JLabel("Modelo do Veículo:"); campo3 = new JTextField(30);
-        imprimir = new JButton("Imprimir");
+     
         // Define o layout do container básico
         setLayout(new GridLayout(4,1));
 
@@ -56,8 +54,8 @@ public class FormularioCadastro extends JFrame {
         panel1.add(nome); panel1.add(campo1);
         panel2.add(tipoDoCarro); panel2.add(campo3);
         panel3.add(placa); panel3.add(campo2);
-        panel4.add(ok);     panel4.add(novo);
-        panel4.add(imprimir);
+        panel4.add(ok);     
+        
         // Adiciona os panels ao container básico
         add(panel1); add(panel2);
         add(panel3); add(panel4);
@@ -79,36 +77,17 @@ public class FormularioCadastro extends JFrame {
                     Logger.getLogger(FormularioCadastro.class.getName()).log(Level.SEVERE, null, ex);
                 } catch (IOException ex) {
                     Logger.getLogger(FormularioCadastro.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (ClassNotFoundException ex) {
+                    Logger.getLogger(FormularioCadastro.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (Exception ex) {
+                    Logger.getLogger(FormularioCadastro.class.getName()).log(Level.SEVERE, null, ex);
                 }
+
 
             System.exit(0);
        }
         });
-
-        novo.addActionListener(new ActionListener(){
-        public void actionPerformed(ActionEvent e){
-
-            String nomeCliente = campo1.getText();
-            String placa = campo2.getText();
-            String tipoC = campo3.getText();
-
-            ClienteMensalista atual = new ClienteMensalista(placa,nomeCliente,tipoC,true);
-                try {
-                    atual.Cadastro(atual);
-                } catch (FileNotFoundException ex) {
-                    Logger.getLogger(FormularioCadastro.class.getName()).log(Level.SEVERE, null, ex);
-                } catch (IOException ex) {
-                    Logger.getLogger(FormularioCadastro.class.getName()).log(Level.SEVERE, null, ex);
-                }
-
-           
-                campo1.setText("");
-                campo2.setText("");
-                campo3.setText("");
-       }
-        });
-
-
+   
 }
 }
 

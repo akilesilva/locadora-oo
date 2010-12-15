@@ -83,8 +83,7 @@ public class Cliente implements Serializable{
     public void setValor(double valor) {
         this.valor = valor;
     }
-
-    public static void serializa(ArrayList<Cliente> Clientes) throws FileNotFoundException, IOException{
+ public static void serializa(ArrayList<Cliente> Clientes) throws FileNotFoundException, IOException{
 
         //Gera o arquivo para armazenar o objeto
         FileOutputStream arquivoGrav;
@@ -139,8 +138,4 @@ public class Cliente implements Serializable{
 
 	return lista;
 }
-
-
-
-
 }

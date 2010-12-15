@@ -22,13 +22,17 @@ public class Movimento {
      //registro de entrada e saida de veiculos do estacionamento, tanto mensalistas quando horistas
      ArrayList<Cliente> TotalClientes;
 
-    public void Entrada(String placa) throws FileNotFoundException, IOException, ClassNotFoundException
+     //objeto da classe cliente para acessar seu métodos
+     Cliente obj = new Cliente();
+
+    public void Entrada(String placa) throws FileNotFoundException, IOException, ClassNotFoundException, Exception
     {
         int codigo = 0;
 
+
         //cria um objeto Cliente Mensalista e 'pega' todos os clientes mensalistas
         ClienteMensalista mensal = new ClienteMensalista();
-        cadastrados = mensal.Deserializa();
+        cadastrados = mensal.deserializaMensal();
 
         //pega a hora que entrou para armazenar no registro do cliente
         Calendar hora = Calendar.getInstance();
@@ -44,11 +48,11 @@ public class Movimento {
                 pessoa.setHoraEntrada(hora);
 
                 //atualiza o .dat com a nova hora do mensalista
-                pessoa.Serializa(cadastrados);
+                pessoa.SerializaMensal(cadastrados);
 
                 //armazena a entrada no registro total
                 TotalClientes.add(pessoa);
-                Cliente.serializa(TotalClientes);
+                obj.serializa(TotalClientes);
 
                 break;
             }
@@ -62,13 +66,13 @@ public class Movimento {
             //adiciona no ArrayList de todos os clientes
             TotalClientes.add(usuario);
             //salva no registro o novo cliente
-            Cliente.serializa(TotalClientes);
+            obj.serializa(TotalClientes);
 
         }
     }
 
 
-    public void Saida(String placa) throws FileNotFoundException, IOException, ClassNotFoundException{
+    public void Saida(String placa) throws FileNotFoundException, IOException, ClassNotFoundException, Exception{
 
         Calendar horaSaida = Calendar.getInstance();
 
@@ -85,7 +89,7 @@ public class Movimento {
                 {
                     //pega a hora de saída do mensalista e atualiza seu cadastro
                     pessoa.setHoraSaida(horaSaida);
-                    Cliente.serializa(TotalClientes);
+                    obj.serializa(TotalClientes);
                 }
                 else // eh horista
                 {
@@ -99,7 +103,7 @@ public class Movimento {
                     usuario.setValor(usuario.CalculaValor(entrada,horaSaida));
 
                     //atualiza o registro de clientes
-                    Cliente.serializa(TotalClientes);
+                    obj.serializa(TotalClientes);
                  }
                 break;
             }
